@@ -1,18 +1,23 @@
-dataAnalysis <- function(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip") {
+dataAnalysis <- function(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE) {
   rawdata <- getData(DataURL)
   datatable <- mergeData(rawdata)
   varNames <- cleanVar(datatable)
   setnames(x=datatable, old=varNames)
+  meanDatatable <- calcmean(datatable)
   message("Analysis done")
-  calcmean(datatable)
-  
-  
+
+  if(IncludeData) {
+        list(meanDatatable, datatable)
+  }
+  else {
+          meanDatatable
+  }
 }
 
 
 getData <- function(DataURL){
     permwd <- getwd()
-  
+
     downfile <- tempfile()
     zipdir <- tempfile()
     dir.create(zipdir)
@@ -36,7 +41,7 @@ getData <- function(DataURL){
     message("Finished file 7/7")
       features <- read.table(file="UCI HAR Dataset/features.txt", sep="", as.is=TRUE)
     message("Finished importing, cleaning dir")
-    
+
     unlink(zipdir, recursive=TRUE)
     unlink(downfile)
     setwd(permwd)
@@ -48,14 +53,14 @@ mergeData <- function(input) {
     library(data.table)
     message("Merging data")
     list_data <- input
-    dt_test <- data.table(label = list_data[[3]], subject = list_data[[5]], list_data[[1]])
-    dt_train <- data.table(label = list_data[[4]], subject = list_data[[6]], list_data[[2]])
-    
+    dt_test <- data.table(list_data[[3]], list_data[[5]], list_data[[1]])
+    dt_train <- data.table(list_data[[4]], list_data[[6]], list_data[[2]])
+
     names = c("label", "subject", list_data[[8]][, 2])
     setnames(dt_test, names)
     setnames(dt_train, names)
     dt <- rbind(dt_train, dt_test)
-     
+
     label = camelCase(tolower(list_data[[7]][,2]), sep="_")
     label_factor <- factor(label, levels=label)
     subject_factor <- factor(seq(from=1, to=30, by=1), levels=seq(from=1, to=30, by=1))
@@ -73,16 +78,16 @@ cleanVar <- function(input) {
     varnames <- gsub(pattern="^f", replacement="Freq.", x = varnames)
     varnames <- gsub(pattern="mean\\(\\)", replacement="Mean.", x = varnames)
     varnames <- gsub(pattern="std\\(\\)", replacement="StandardDeviation.", x = varnames)
-    
 
-    
+
+
     varnames <- gsub(pattern="Mag", replacement="Magnitude.", x = varnames)
     varnames <- gsub(pattern="BodyBody", replacement="Body", x = varnames)
     varnames <- gsub(pattern="\\.$", replacement="", x = varnames)
-    
+
     varnames <- gsub(pattern="Acc", replacement=".Acceleration.", x = varnames)
     varnames <- gsub(pattern="Gyro", replacement=".Gyro.", x = varnames)
-    
+
     varnames <- gsub(pattern="Acceleration.Jerk", replacement="LinearAcceleration.", x = varnames)
                 gsub(pattern="Gyro.Jerk", replacement="AngularAcceleration.", x = varnames)
 }
@@ -95,13 +100,13 @@ calcmean <- function(input) {
 
 camelCase <- function(input, sep) {
     convert <- function(x, sep) {
-    
+
       if(grepl(sep, x)) {
         string <- tolower(strsplit(x, sep)[[1]])
         string[2] <- paste(toupper(substring(string[2],1,1)), substring(string[2],2), sep="")
         paste(string, sep="", collapse="")
     }
-    
+
     else {x}
   }
   paste(lapply(input, convert, sep))

@@ -135,16 +135,30 @@ For further explanation refer to the original code book available at [UCI](http:
 * Freq.Body.LinearAcceleration.StandardDeviation.Z (Num: [-1;1])
 	* Mean of standard deviation of a Fast Fourier Transformation of linear acceleration from body, in z-axis.
 * Freq.Body.Gyro.Mean.X (Num: [-1;1])
+	* Mean of mean of gyroscope measurement transformed with a Fast Fourier Transformation, in x-axis.
 * Freq.Body.Gyro.Mean.Y (Num: [-1;1])
+	* Mean of mean of gyroscope measurement transformed with a Fast Fourier Transformation, in y-axis.
 * Freq.Body.Gyro.Mean.Z (Num: [-1;1])
+	* Mean of mean of gyroscope measurement transformed with a Fast Fourier Transformation, in z-axis.
 * Freq.Body.Gyro.StandardDeviation.X (Num: [-1;1])
+	* Mean of standard deviation of gyroscope measurement transformed with a Fast Fourier Transformation, in x-axis.
 * Freq.Body.Gyro.StandardDeviation.Y (Num: [-1;1])
+	* Mean of standard deviation of gyroscope measurement transformed with a Fast Fourier Transformation, in y-axis.
 * Freq.Body.Gyro.StandardDeviation.Z (Num: [-1;1])
+	* Mean of standard deviation of gyroscope measurement transformed with a Fast Fourier Transformation, in z-axis.
 * Freq.Body.Acceleration.Magnitude.Mean (Num: [-1;1])
+	* Mean of magnitude of mean of acceleration transformed with a Fast Fourier Transformation.
 * Freq.Body.Acceleration.Magnitude.StandardDeviation (Num: [-1;1])
+	* Mean of magnitude of standard deviation of acceleration transformed with a Fast Fourier Transformation.
 * Freq.Body.LinearAcceleration.Magnitude.Mean (Num: [-1;1])
+	* Mean of magnitude of mean of linear acceleration transformed with a Fast Fourier Transformation.
 * Freq.Body.LinearAcceleration.Magnitude.StandardDeviation (Num: [-1;1])
+	* Mean of magnitude of standard deviation of linear acceleration transformed with a Fast Fourier Transformation.
 * Freq.Body.Gyro.Magnitude.Mean (Num: [-1;1])
+	* Mean of mean of gyroscope measurement transformed with a Fast Fourier Transformation.
 * Freq.Body.Gyro.Magnitude.StandardDeviation (Num: [-1;1])
+	* Mean of standard deviation of gyroscope measurement transformed with a Fast Fourier Transformation.
 * Freq.Body.AngularAcceleration.Magnitude.Mean (Num: [-1;1])
+	* Mean of magnitude of mean of angular acceleration transformed with a Fast Fourier Transformation.
 * Freq.Body.AngularAcceleration.Magnitude.StandardDeviation (Num: [-1;1])
+	* Mean of magnitude of standard deviation of angular acceleration transformed with a Fast Fourier Transformation.
