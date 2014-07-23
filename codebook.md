@@ -3,11 +3,7 @@ Number of variables: 	68
 Number of rows:			180  
 Class:					Data table  
 
-* subject [Factor, 1-30]
-	* Factor from 1-30 indicating which test subject the observation comes from.
-* label [Factor, "walking", "walkingUpstairs", "walkingDownstairs", "sitting", "standing", "laying" ]
-	* Factor indicating which activity was performed
-	
+
 Below are the extracted variables from the original dataset. 
 It is a combination of Camel Case and dots, as I thought Camel Case alone proved somewhat hard to read (TimeBodyAccelerationMeanX).
 The variables are constructed by the following formatting:
@@ -30,8 +26,10 @@ For each of the subjects and each of the activities the mean of each of the vari
 For further explanation refer to the original code book available at [UCI](http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones#).
 	
 ## Variables
-* subject
-* label
+* subject [Factor, 1-30]
+	* Factor from 1-30 indicating which test subject the observation comes from.
+* label [Factor, "walking", "walkingUpstairs", "walkingDownstairs", "sitting", "standing", "laying" ]
+	* Factor indicating which activity was performed
 * Time.Body.Acceleration.Mean.X (Num: [-1;1])
 	* Mean of mean of acceleration measured from accelerometer, separated from gravity, in x-axis.
 * Time.Body.Acceleration.Mean.Y (Num: [-1;1])
