@@ -26,6 +26,10 @@ getData <- function(DataURL, downloadData = downloadData){
                 unzip(downfile, exdir=zipdir)
                 setwd(zipdir)
         }
+        else {
+                setwd("getdata-projectfiles-UCI HAR Dataset")
+        }
+
     message("Reading data")
       test_data <- read.table(file="UCI HAR Dataset/test/X_test.txt", sep="")
     message("Finished file 1/7")
