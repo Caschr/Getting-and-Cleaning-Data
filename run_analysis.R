@@ -1,5 +1,5 @@
-dataAnalysis <- function(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE) {
-  rawdata <- getData(DataURL)
+dataAnalysis <- function(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE, downloadData = FALSE) {
+  rawdata <- getData(DataURL, downloadData)
   datatable <- mergeData(rawdata)
   varNames <- cleanVar(datatable)
   setnames(x=datatable, old=varNames)
@@ -15,15 +15,17 @@ dataAnalysis <- function(DataURL = "https://d396qusza40orc.cloudfront.net/getdat
 }
 
 
-getData <- function(DataURL){
-    permwd <- getwd()
+getData <- function(DataURL, downloadData = downloadData){
+        permwd <- getwd()
 
-    downfile <- tempfile()
-    zipdir <- tempfile()
-    dir.create(zipdir)
-    download.file(url=DataURL, destfile=downfile)
-    unzip(downfile, exdir=zipdir)
-    setwd(zipdir)
+        if(downloadData) {
+                downfile <- tempfile()
+                zipdir <- tempfile()
+                dir.create(zipdir)
+                download.file(url=DataURL, destfile=downfile)
+                unzip(downfile, exdir=zipdir)
+                setwd(zipdir)
+        }
     message("Reading data")
       test_data <- read.table(file="UCI HAR Dataset/test/X_test.txt", sep="")
     message("Finished file 1/7")
@@ -40,10 +42,13 @@ getData <- function(DataURL){
       label <- read.table(file="UCI HAR Dataset/activity_labels.txt", sep="", colClasses=c("numeric", "character"))
     message("Finished file 7/7")
       features <- read.table(file="UCI HAR Dataset/features.txt", sep="", as.is=TRUE)
-    message("Finished importing, cleaning dir")
+    message("Finished importing")
 
-    unlink(zipdir, recursive=TRUE)
-    unlink(downfile)
+        if(downloadData) {
+                unlink(zipdir, recursive=TRUE)
+                unlink(downfile)
+        }
+
     setwd(permwd)
     message("Done")
     list(test_data, train_data, test_label, train_label, test_subject, train_subject, label, features)

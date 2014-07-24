@@ -10,10 +10,11 @@ To perform the analysis the following steps should be done
  Below is a description of the functions in the script.
  
 ## Functions
-####dataAnalysis(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE) 
-Top function and the one that wraps all the other. The function takes two arguments, DataURL and IncludeData. The DataURL is the URL where the data is located and is by
+####dataAnalysis(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE, downloadData = FALSE) 
+Top function and the one that wraps all the other. The function takes three arguments, DataURL, IncludeData and downloadData. The DataURL is the URL where the data is located and is by
 default the location given by the instructors. The second argument, IncludeData, is whether the function should return the first data table, the one it calculates the mean from. If set to TRUE the function returns a list where the first item is a data table with the means, and the second item is the 
-data table from which the means has been calculated.  
+data table from which the means has been calculated. The third argument states whether the script should download the data from the path defined by DataURL. By default it is set to false,
+which means it will read the unzipped data from the current working directory.
 The dataAnalysis function starts by calling the getData function, then calls the mergeData function, the calls the cleanVar function and loads the names into a variable called varNames, which it then sets as names for the data table containing the merged data. The function then calls the 
 calcmean function which then calculates the mean of each subject of each activity, and returns a data table. Depending on whether IncludeData is TRUE, a list or a data table is returned.
 
