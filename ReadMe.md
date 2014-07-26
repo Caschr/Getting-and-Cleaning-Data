@@ -1,4 +1,4 @@
-# Read me for dataAnalysis function
+# Read me
 
 ## Instructions
 To perform the analysis the following steps should be done  
@@ -11,16 +11,17 @@ To perform the analysis the following steps should be done
  
 ## Functions
 ####dataAnalysis(DataURL = "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip", IncludeData = FALSE, downloadData = FALSE) 
-Top function and the one that wraps all the other. The function takes three arguments, DataURL, IncludeData and downloadData. The DataURL is the URL where the data is located and is by
-default the location given by the instructors. The second argument, IncludeData, is whether the function should return the first data table, the one it calculates the mean from. If set to TRUE the function returns a list where the first item is a data table with the means, and the second item is the 
-data table from which the means has been calculated. The third argument states whether the script should download the data from the path defined by DataURL. By default it is set to false,
-which means it will read the unzipped data from the current working directory.
+This is the top function and the one that wraps all the other. The function takes three arguments, DataURL, IncludeData and downloadData. The DataURL is the URL where the data is located and is by
+default the location given by the instructors. The second argument, IncludeData, is whether the function should return the first data table, the one it calculates the means from. If set to TRUE the function returns a list where the first item is a data table with the means, and the second item is the 
+data table from which the means has been calculated. The third argument states whether the script should download the data from the path defined by DataURL. By default it is set to FALSE,
+meaning it will read the unzipped data (which must be present) from the current working directory.
 The dataAnalysis function starts by calling the getData function, then calls the mergeData function, the calls the cleanVar function and loads the names into a variable called varNames, which it then sets as names for the data table containing the merged data. The function then calls the 
 calcmean function which then calculates the mean of each subject of each activity, and returns a data table. Depending on whether IncludeData is TRUE, a list or a data table is returned.
 
-####getData(DataURL)  
-This function only takes one argument, the URL from which the data can be obtained. It is passed from the dataAnalysis function.  
-The getData function starts off by creating a temporary file to which the zipfile is downloaded and a temporary directory to which the zipfile is unzipped. It then reads eight data frames:
+####getData(DataURL, downloadData)  
+This function takes two arguments, the URL from which the data can be obtained, and whether it should get the data online, or it should try and read it from the current working directory. Both arguments are passed from the dataAnalysis function.
+If downloadData is set to TRUE, the getData function starts off by creating a temporary file to which the zipfile is downloaded and a temporary directory to which the zipfile is unzipped. From here the function does the same, regardless of what downloadData is set to.
+The function reads from the raw data into eight data frames:
 
 1. test_data - The actual data from the test folder.
 2. train_data - The actual data from the train folder.
@@ -31,7 +32,7 @@ The getData function starts off by creating a temporary file to which the zipfil
 7. label - The activities corresponding the the numeric labels in the data.
 8. features - The variables of the data.
 
-When all the data has been read to memory, the temp directory is cleaned. A list of eight items is returned (in the order specified above), containg the data.
+Whe the raw data has been read into memory, it will clean the temp dir (if it was created). A list of eight items is returned (in the order specified above), containg the data.
 
 ####mergeData(input)
 The mergeData function only takes one argument, the list of eight data frames that is returned from the getData function. The data frame is passed through the dataAnalysis function.  
@@ -44,7 +45,7 @@ The cleanVar function only takes one argument, input, which is a data table cont
 The gsub functions is not shortened with lapply etc. since it would decrease the readability. By spelling out each gsub step it becomes easier to see what is actually happening. 
 
 ####calcmean(input)
-The calcmean function only takes one input, a data table containing the data. The calcmean function calculates the mean of each subject doing each activity, by all variables, and returns a 180x68 data table (180x68 = 6 activities times 30 subjects). The actual calculation is done
+The calcmean function only takes one input, a data table containing the data. The calcmean function calculates the mean of each subject doing each activity, by all variables, and returns a 180x68 data table (180 = 6 activities times 30 subjects). The actual calculation is done
 by the aggregate function.
 
 ####camelCase(input, sep)

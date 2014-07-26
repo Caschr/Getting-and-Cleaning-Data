@@ -5,8 +5,8 @@ Class:					Data table
 
 
 Below are the extracted variables from the original dataset. 
-It is a combination of Camel Case and dots, as I thought Camel Case alone proved somewhat hard to read (TimeBodyAccelerationMeanX).
-The variables are constructed by the following formatting:
+It is a combination of Camel Case and dots, as I thought Camel Case alone proved somewhat hard to read.
+The variables are constructed with the following formatting:
 **[Time/Freq].[Body/Gravity].[Measurement].[Mean/StandardDeviation].(Magnitude).[Axis]**
 
 Measurement and axis can take on the following values:
